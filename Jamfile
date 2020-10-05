@@ -115,6 +115,7 @@ TEST_NAMES =
 	;
 
 COMMON_NAMES =
+	SceneScript
 	data_path
 	PathFont
 	PathFont-font

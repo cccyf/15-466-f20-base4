@@ -12,12 +12,21 @@
 struct TextTexture {
     TextTexture();
     ~TextTexture();
-    void DrawText(ColorTextureProgram* color_texture_program, float cursor_x, float cursor_y, float scale);
+    void DrawText(float cursor_x, float cursor_y, float scale_x, float scale_y);
+    void Update(char* txt);
 
-    char txt [50] = "morning";
+    int align = 0; // 0->mid
+    float min_line_cursor = -.5;
+    float max_line_cursor = 0.5;
+    int line_limit = 30;
+
+    int line_no = 0;
+
+    char txt [500] = "morning";
 
     unsigned int VAO, VBO;
-    
+    GLuint vs{0}, fs{0}, program{0};
+
     //draw functions will work on vectors of vertices, defined as follows:
 	struct Vertex {
 		Vertex(glm::vec3 const &Position_, glm::u8vec4 const &Color_, glm::vec2 const &TexCoord_) :
@@ -53,10 +62,14 @@ struct TextTexture {
         unsigned int Advance;    // Offset to advance to next glyph
     };
 
+    struct Coordi{
+        float x, y, s, t;
+    };
+
     std::map<char, Gly> text_mappings;
 
     private:
-    TextTexture::Gly LoadTexture(char cp);
+        TextTexture::Gly LoadTexture(char cp);
 
 	// ColorTextureProgram color_texture_program;
 

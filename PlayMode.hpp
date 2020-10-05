@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <deque>
+#include "SceneScript.hpp"
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -47,5 +48,5 @@ struct PlayMode : Mode {
 
 	TextTexture textTexture;
 
-	
+	SceneScript sceneScript;
 };
