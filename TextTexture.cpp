@@ -7,7 +7,7 @@
 #include FT_FREETYPE_H
 
 TextTexture::TextTexture(){
-      char fn [50] = "/System/Library/Fonts/AquaKana.ttc";
+      char fn [50] = "/System/Library/Fonts/Noteworthy.ttc";
       unsigned int index = 0;
 
       buf = hb_buffer_create();

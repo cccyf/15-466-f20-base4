@@ -130,7 +130,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 			sceneScript.cur_chapter = sceneScript.stories[sceneScript.cur_chapter.index_a];
 			return true;
 		}
-		if (evt.key.keysym.sym == SDLK_b)
+		if (evt.key.keysym.sym == SDLK_d)
 		{
 			sceneScript.cur_chapter = sceneScript.stories[sceneScript.cur_chapter.index_b];
 			return true;
