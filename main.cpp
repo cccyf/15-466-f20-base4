@@ -27,6 +27,7 @@
 #include <algorithm>
 
 int main(int argc, char **argv) {
+	// test_font();
 #ifdef _WIN32
 	//when compiled on windows, unhandled exceptions don't have their message printed, which can make debugging simple issues difficult.
 	try {

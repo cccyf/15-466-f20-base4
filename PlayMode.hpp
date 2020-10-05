@@ -1,7 +1,9 @@
+#include "ColorTextureProgram.hpp"
 #include "Mode.hpp"
 
 #include "Scene.hpp"
 #include "Sound.hpp"
+#include "TextTexture.hpp"
 
 #include <glm/glm.hpp>
 
@@ -17,32 +19,33 @@ struct PlayMode : Mode {
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const &drawable_size) override;
 
+
+//draw functions will work on vectors of vertices, defined as follows:
+	struct Vertex {
+		Vertex(glm::vec3 const &Position_, glm::u8vec4 const &Color_, glm::vec2 const &TexCoord_) :
+			Position(Position_), Color(Color_), TexCoord(TexCoord_) { }
+		glm::vec3 Position;
+		glm::u8vec4 Color;
+		glm::vec2 TexCoord;
+	};
+	static_assert(sizeof(Vertex) == 4*3 + 1*4 + 4*2, "PongMode::Vertex should be packed");
+
+	//Shader program that draws transformed, vertices tinted with vertex colors:
+	ColorTextureProgram color_texture_program;
+
+	//Buffer used to hold vertex data during drawing:
+	GLuint vertex_buffer = 0;
+
+	//Vertex Array Object that maps buffer locations to color_texture_program attribute locations:
+	GLuint vertex_buffer_for_color_texture_program = 0;
+
+	//Solid white texture:
+	GLuint white_tex = 0;
+
+
 	//----- game state -----
 
-	//input tracking:
-	struct Button {
-		uint8_t downs = 0;
-		uint8_t pressed = 0;
-	} left, right, down, up;
+	TextTexture textTexture;
 
-	//local copy of the game scene (so code can change it during gameplay):
-	Scene scene;
-
-	//hexapod leg to wobble:
-	Scene::Transform *hip = nullptr;
-	Scene::Transform *upper_leg = nullptr;
-	Scene::Transform *lower_leg = nullptr;
-	glm::quat hip_base_rotation;
-	glm::quat upper_leg_base_rotation;
-	glm::quat lower_leg_base_rotation;
-	float wobble = 0.0f;
-
-	glm::vec3 get_leg_tip_position();
-
-	//music coming from the tip of the leg (as a demonstration):
-	std::shared_ptr< Sound::PlayingSample > leg_tip_loop;
 	
-	//camera:
-	Scene::Camera *camera = nullptr;
-
 };

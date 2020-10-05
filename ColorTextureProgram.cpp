@@ -57,3 +57,21 @@ ColorTextureProgram::~ColorTextureProgram() {
 	program = 0;
 }
 
+GLuint ColorTextureProgram::GetVao(GLuint vertex_buffer) const
+{
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+
+    glEnableVertexAttribArray(Position_vec4);
+    glVertexAttribPointer(Position_vec4, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
+
+	glEnableVertexAttribArray(Color_vec4);
+    glVertexAttribPointer(Color_vec4, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (const void*)offsetof(Vertex, Color));
+
+    glEnableVertexAttribArray(TexCoord_vec2);
+    glVertexAttribPointer(TexCoord_vec2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)offsetof(Vertex, TexCoord));
+
+    return vao;
+}
