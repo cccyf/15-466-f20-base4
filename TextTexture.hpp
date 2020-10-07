@@ -45,7 +45,7 @@ struct TextTexture {
     FT_Vector     pen;                    /* untransformed origin  */
     FT_Error      error;
 
-    char*         filename;
+    const char*         filename;
     char*         text;
 
     double        angle;

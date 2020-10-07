@@ -3,11 +3,12 @@
 #include <iostream>
 #include "gl_errors.hpp"
 #include <glm/gtc/type_ptr.hpp>
+#include "data_path.hpp"
 
 #include FT_FREETYPE_H
 
 TextTexture::TextTexture(){
-      char fn [50] = "/System/Library/Fonts/Noteworthy.ttc";
+      std::string fn = data_path("David_Libre/DavidLibre-Medium.ttf");  
       unsigned int index = 0;
 
       buf = hb_buffer_create();
@@ -16,7 +17,7 @@ TextTexture::TextTexture(){
       hb_buffer_set_script(buf, HB_SCRIPT_LATIN);
       hb_buffer_set_language(buf, hb_language_from_string("en", -1));
       
-      filename      = fn;                           /* first argument     */
+      filename      = fn.c_str();                    /* first argument     */
       text          = txt;                           /* second argument    */
       num_chars     = strlen( text );
       
@@ -131,7 +132,7 @@ void TextTexture::DrawText(float cursor_x, float cursor_y, float scale_x, float 
       glDisable(GL_CULL_FACE);
       glDisable(GL_DEPTH_TEST);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-      glClearColor(0, 0.2, 0.2, 0);
+      glClearColor(0., 0., 0., 0);
 	glClearDepth(1.0f); //1.0 is actually the default value to clear the depth buffer to, but FYI you can change it.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -164,8 +165,9 @@ void TextTexture::DrawText(float cursor_x, float cursor_y, float scale_x, float 
 
             for (cur_end = cur_start; cur_end < glyph_count && (cur_offset <= 1.f || glyph_info[cur_end].codepoint != 3); cur_end += 1)
             {
+                  // std::cout << cur_end << " " << glyph_info[cur_end].codepoint << "\n";
                  cur_offset += glyph_pos[cur_end].x_advance / 64.0 * scale_x;
-                 if (glyph_info[cur_end].codepoint == 0)
+                 if (glyph_info[cur_end].codepoint == 636)
                  {
                        seen_blankspace = 1;
                        break;
@@ -233,54 +235,6 @@ void TextTexture::DrawText(float cursor_x, float cursor_y, float scale_x, float 
             
       }
       
-
-	// for (size_t i = 0; i < glyph_count; ++i) {
-	// 	hb_codepoint_t glyphid = glyph_info[i].codepoint;
-	// 	float x_offset = glyph_pos[i].x_offset / 64.0;
-	// 	float y_offset = glyph_pos[i].y_offset / 64.0;
-	// 	float x_advance = glyph_pos[i].x_advance / 64.0;
-	// 	float y_advance = glyph_pos[i].y_advance / 64.0;
-
-	// 	if(FT_Load_Glyph(face, glyphid, FT_LOAD_DEFAULT) != 0){
-      //             continue;
-      //       }
-
-	// 	if (FT_Render_Glyph(glyph, FT_RENDER_MODE_NORMAL) != 0) {
-	// 		continue;
-	// 	}
-
-      //       glTexImage2D(GL_TEXTURE_2D, 0, GL_R8,
-      //                glyph->bitmap.width, glyph->bitmap.rows,
-      //                0, GL_RED, GL_UNSIGNED_BYTE, glyph->bitmap.buffer);
-
-      //       const float vx = cursor_x + x_offset + glyph->bitmap_left * scale_x;
-      //       const float vy = cursor_y + y_offset + glyph->bitmap_top * scale_y;
-      //       const float w = glyph->bitmap.width * scale_x;
-      //       const float h = glyph->bitmap.rows * scale_y;
-
-      //       Coordi data[6] = {
-      //             {vx    , vy    , 0, 0},
-      //             {vx    , vy - h, 0, 1},
-      //             {vx + w, vy    , 1, 0},
-      //             {vx + w, vy    , 1, 0},
-      //             {vx    , vy - h, 0, 1},
-      //                   {vx + w, vy - h, 1, 1}
-      //       };
-
-      //       glBufferData(GL_ARRAY_BUFFER, 24*sizeof(float), data, GL_DYNAMIC_DRAW);
-      //       glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-      //       glDrawArrays(GL_TRIANGLES, 0, 6);
-
-      //       cursor_x += x_advance * scale_x;
-      //       cursor_y += y_advance * scale_y;
-      //       if (cursor_x > max_line_cursor)
-      //       {
-      //             cursor_x = min_line_cursor;
-      //             cursor_y -= 1.5 * h;
-      //       }
-            
-	// }
-
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
 }

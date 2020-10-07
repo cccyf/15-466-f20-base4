@@ -12,5 +12,7 @@ struct SceneScript{
     Chapter cur_chapter;
 
     SceneScript();
+    private:
+    void LoadScript();
     
 };
