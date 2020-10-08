@@ -33,16 +33,6 @@ TextTexture::TextTexture(){
             return;
       }
       
-      /* use 50pt at 100dpi */
-      // error = FT_Set_Char_Size( face, 50 * 64, 0,
-      //                         100, 0 );                /* set character size */
-      // /* error handling omitted */
-
-      // font = hb_ft_font_create(face, nullptr);
-
-      // hb_shape(font, buf, NULL, 0);
-
-      // FT_Face face;
 	FT_Set_Char_Size(face, 0, 16*64, 360, 400);
 	font = hb_ft_font_create(face, NULL);
 	

@@ -1,10 +1,10 @@
-# (TODO: your game's title)
+# To Experience
 
-Author: (TODO: your name)
+Author: YF
 
-Design: (TODO: In two sentences or fewer, describe what is new and interesting about your game.)
+Design: A climbing story. You can make your choices according to the game instructions.
 
-Text Drawing: (TODO: how does the text drawing in this game work? Is text precomputed? Rendered at runtime? What files or utilities are involved?)
+Text Drawing: It's included in the TextTexture and SceneScript files. SceneScript is to load the text assets at runtime. TextTexture is to compute the positions and the text at runtime.
 
 Screen Shot:
 
@@ -12,9 +12,11 @@ Screen Shot:
 
 How To Play:
 
-(TODO: describe the controls and (if needed) goals/strategy.)
+Press A or D according to the instructions on the screen to change the scenes.
 
-Sources: (TODO: list a source URL for any assets you did not create yourself. Make sure you have a license for the asset.)
+Sources: 
+
+- Font: [DavidLibre-Medium](https://fonts.google.com/specimen/David+Libre). This Font Software is licensed under the SIL Open Font License, Version 1.1.
 
 This game was built with [NEST](NEST.md).
 

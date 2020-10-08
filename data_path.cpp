@@ -58,7 +58,6 @@ static std::string get_exe_path() {
 }
 
 std::string data_path(std::string const &suffix) {
-	std::cout << suffix<<"\n";
 	static std::string path = get_exe_path(); //cache result of get_exe_path()
 	return path + "/" + suffix;
 }
